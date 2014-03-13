@@ -1,0 +1,6 @@
+<h1>High Speed E-Reader Prototype</h1>
+<h2>Please paste text which you wish to quickly read.</h2>
+<%= form_for @reader, url: {action: "index", controller: "reader"}, html: {class: "nifty_form"} do |f| %>
+  <%= f.text_area :content, size: "60x12" %>
+  <%= f.submit "Create" %>
+<% end %>
