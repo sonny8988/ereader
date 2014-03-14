@@ -2,24 +2,35 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-timeInterval = 150
+timeInterval = 60000/200
 count = 0
+word = 0
+looping = 0
 
-start = (word) ->
-  setInterval () ->
+setTimeInterval = (interval) ->
+  timeInterval = interval
+
+start = -> 
+  looping = setInterval () ->
     $('#contents').html(word[count])
     count++
     if(count >= word.length)
       count = 0
-  , 1000
+  , timeInterval
 
 pause =->
-  clearInterval(start())
+  clearInterval(looping)
 
 
 init = ->
-  words = $('#contents').data('words')
-  start(words) if words?
+  word = $('#contents').data('words')
+  start() if word?
+
+@changeWPM = ->
+  wpm = $('#WPM').val()
+  pause()
+  timeInterval = 60000/wpm
+  start()
 
 $(document).ready(init)
 

@@ -3,7 +3,7 @@ class Reader
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :content
+  attr_accessor :content, :wpm
 
   def initialize(content)
     @content = content
