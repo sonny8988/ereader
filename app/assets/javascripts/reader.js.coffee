@@ -7,6 +7,7 @@ count = 0
 word = 0
 looping = 0
 running = true
+showBlank = false
 
 setTimeInterval = (interval) ->
   timeInterval = interval
@@ -25,8 +26,19 @@ decrementCount = ->
 
 start = -> 
   looping = setInterval () ->
+    if showBlank  
+      #$('#contents').html(' ')
+    else
       $('#contents').html(word[count])
+    if showBlank #reset blank 
+      showBlank = false
       incrementCount()
+    else
+      lastCharIndex = word[count].length - 1
+      if word[count].charAt(lastCharIndex) == '.' or word[count].charAt(lastCharIndex) == ','
+        showBlank = true
+      else
+        incrementCount()
   , timeInterval
   running = true
 
