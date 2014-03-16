@@ -6,31 +6,62 @@ timeInterval = 60000/200
 count = 0
 word = 0
 looping = 0
+running = true
 
 setTimeInterval = (interval) ->
   timeInterval = interval
 
+incrementCount = ->
+  if(count < word.length - 1 )
+    count++
+  else
+    count = 0
+
+decrementCount = ->
+  if(count != 0)
+    count--
+  else
+    count = word.length - 1
+
 start = -> 
   looping = setInterval () ->
-    $('#contents').html(word[count])
-    count++
-    if(count >= word.length)
-      count = 0
+      $('#contents').html(word[count])
+      incrementCount()
   , timeInterval
+  running = true
 
 pause =->
   clearInterval(looping)
-
+  running = false
 
 init = ->
   word = $('#contents').data('words')
   start() if word?
+
+@test = ->
+  poop = 1
 
 @changeWPM = ->
   wpm = $('#WPM').val()
   pause()
   timeInterval = 60000/wpm
   start()
+
+@readerBack = ->
+  decrementCount()
+  $('#contents').html(word[count])
+
+@readerNext = ->
+  incrementCount()
+  $('#contents').html(word[count])
+
+@readerPausePlay = ->
+  if running
+    pause()
+    $('#readerPauseButton').html('Start')
+  else
+    start()
+    $('#readerPauseButton').html('Pause')
 
 $(document).ready(init)
 
