@@ -57,7 +57,7 @@ init = ->
   wpm = $('#WPM').val()
   pause()
   timeInterval = 60000/wpm
-  start()
+  @readerPausePlay()
 
 @readerBack = ->
   decrementCount()
